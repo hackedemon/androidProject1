@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,16 +16,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -51,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                             .setTitle("Invalid Username")
                             .setMessage("Username cannot be empty!")
                             .show();
-                } else if (passString.matches("")){
+                } else if (passString.matches("")) {
                     new AlertDialog.Builder(LoginActivity.this)
                             .setTitle("Invalid Password")
                             .setMessage("Password cannot be empty!")
@@ -92,8 +102,22 @@ public class LoginActivity extends AppCompatActivity {
                 connection.setRequestMethod("POST");
                 connection.setReadTimeout(10000);
                 connection.setConnectTimeout(15000);
-                connection.addRequestProperty("username",userString);
-                connection.addRequestProperty("pass",passString);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("username", params[1])
+                        .appendQueryParameter("pass", params[2]);
+                String query = builder.build().getEncodedQuery();
+
+                OutputStream os = connection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+
                 connection.connect();
 
                 if (connection.getResponseCode() == 200) {
@@ -126,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
                 BufferedReader reader = new BufferedReader(inputStreamReader);
                 String line = reader.readLine();
-                while ( line != null ) {
+                while (line != null) {
                     output.append(line);
                     line = reader.readLine();
                 }
@@ -136,14 +160,24 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            if (pd.isShowing()){
+//            super.onPostExecute(result);
+            if (pd.isShowing()) {
                 pd.dismiss();
             }
-            new AlertDialog.Builder(LoginActivity.this)
-                    .setTitle("Success")
-                    .setMessage("Login Successful!")
-                    .show();
+
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                if (jsonObject.getString("response").matches("success")) {
+                    startActivity(new Intent(LoginActivity.this, AddSchemesActivity.class));
+                } else {
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle("Error")
+                            .setMessage("Incorrect username or password!")
+                            .show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
