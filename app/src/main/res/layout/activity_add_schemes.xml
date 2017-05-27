@@ -9,20 +9,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="world.selfiewithdaughter.www.selfiewithdaughter.AddSchemesActivity">
 
-    <TextView
+    <EditText
+        android:hint="Header"
         android:id="@+id/schemeHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <EditText
+        android:hint="Description"
         android:id="@+id/schemeDescription"
+        android:layout_below="@+id/schemeHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/addSchemeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:text="Submit"
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
