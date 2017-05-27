@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/list_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:text="Header will be wrapped if goes beyond 1 line"/>
+
+    <TextView
+        android:id="@+id/list_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:textSize="16sp"
+        android:maxLines="5"
+        android:text="Just like header, description text will be wrapped after it goes beyond 6lines."/>
+
+</LinearLayout>

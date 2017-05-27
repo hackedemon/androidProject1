@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Selfie With Daughter</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="no_internet_connection">No Internet Connection. Please check connectivity and try again.</string>
+    <string name="no_schemes">No Schemes available currently!</string>
+</resources>
