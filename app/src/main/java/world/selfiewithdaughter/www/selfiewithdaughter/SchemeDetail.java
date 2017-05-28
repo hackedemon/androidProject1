@@ -2,6 +2,7 @@ package world.selfiewithdaughter.www.selfiewithdaughter;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
 public class SchemeDetail extends AppCompatActivity {
@@ -18,5 +19,6 @@ public class SchemeDetail extends AppCompatActivity {
 
         header.setText(b.getString("HEADER"));
         description.setText(b.getString("DESCRIPTION"));
+
     }
 }

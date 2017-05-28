@@ -8,9 +8,13 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-public class AddSchemesActivity extends AppCompatActivity {
+public class AddSchemesActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     String headerString;
     String descriptionString;
@@ -38,25 +42,37 @@ public class AddSchemesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schemes);
 
+        final EditText header = (EditText) findViewById(R.id.schemeHeading);
+        final EditText description = (EditText) findViewById(R.id.schemeDescription);
         final Button button = (Button) findViewById(R.id.addSchemeButton);
+
+        // Hide views initially
+        header.setVisibility(View.INVISIBLE);
+        description.setVisibility(View.INVISIBLE);
+        button.setVisibility(View.INVISIBLE);
+
+        Spinner dropdown = (Spinner)findViewById(R.id.dropdown);
+        // Spinner click listener
+        dropdown.setOnItemSelectedListener(this);
+        String[] items = new String[]{"Select your option","Add Schemes", "Delete Schemes"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
+
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                EditText header = (EditText) findViewById(R.id.schemeHeading);
-                EditText description = (EditText) findViewById(R.id.schemeDescription);
 
                 headerString = header.getText().toString();
                 descriptionString = description.getText().toString();
 
                 if (headerString.matches("")) {
                     new AlertDialog.Builder(AddSchemesActivity.this)
-                            .setTitle("Invalid Username")
-                            .setMessage("Username cannot be empty!")
+                            .setTitle("Invalid Header")
+                            .setMessage("Header cannot be empty!")
                             .show();
                 } else if (descriptionString.matches("")) {
                     new AlertDialog.Builder(AddSchemesActivity.this)
-                            .setTitle("Invalid Password")
-                            .setMessage("Password cannot be empty!")
+                            .setTitle("Invalid Description")
+                            .setMessage("Description cannot be empty!")
                             .show();
                 } else {
                     // connect to server
@@ -64,6 +80,36 @@ public class AddSchemesActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+
+        if (item.matches("Add Schemes")) {
+            // Showing selected spinner item
+            Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+            
+            Spinner dropdown = (Spinner)findViewById(R.id.dropdown);
+            dropdown.setVisibility(View.INVISIBLE);
+
+            EditText header = (EditText) findViewById(R.id.schemeHeading);
+             EditText description = (EditText) findViewById(R.id.schemeDescription);
+             Button button = (Button) findViewById(R.id.addSchemeButton);
+
+            header.setVisibility(View.VISIBLE);
+            description.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
+        }
+        
+        if (item.matches("Delete Schemes")) {
+//            Spinner dropdown = (Spinner)findViewById(R.id.dropdown);
+//            dropdown.setVisibility(View.INVISIBLE);
+        }
+    }
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
     }
 
     private class JsonTask extends AsyncTask<String, String, String> {
@@ -164,10 +210,16 @@ public class AddSchemesActivity extends AppCompatActivity {
                     EditText description = (EditText) findViewById(R.id.schemeDescription);
                     header.setText(null);
                     description.setText(null);
-                    new AlertDialog.Builder(AddSchemesActivity.this)
-                            .setTitle("Success")
-                            .setMessage("Scheme added")
-                            .show();
+                    Toast.makeText(getApplicationContext(), "Added Successfully", Toast.LENGTH_LONG).show();
+//                    finish();
+                    Button button = (Button) findViewById(R.id.addSchemeButton);
+                    header.setVisibility(View.INVISIBLE);
+                    description.setVisibility(View.INVISIBLE);
+                    button.setVisibility(View.INVISIBLE);
+
+                    Spinner dropdown = (Spinner) findViewById(R.id.dropdown);
+                    dropdown.setVisibility(View.VISIBLE);
+                    dropdown.setSelection(0);
                 } else {
                     new AlertDialog.Builder(AddSchemesActivity.this)
                             .setTitle("Error")

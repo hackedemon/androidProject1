@@ -23,6 +23,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="Description"/>
+        android:text="Description"
+        android:textIsSelectable="true"
+        android:layout_marginTop="16dp"
+        android:autoLink="web"/>
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Delete"/>
 
 </LinearLayout>

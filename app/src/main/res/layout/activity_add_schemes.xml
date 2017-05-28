@@ -9,18 +9,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="world.selfiewithdaughter.www.selfiewithdaughter.AddSchemesActivity">
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:id="@+id/dropdown"
+        android:layout_centerInParent="true"/>
+
     <EditText
         android:hint="Header"
         android:id="@+id/schemeHeading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLength="40"
+        android:maxLines="1"/>
 
     <EditText
         android:hint="Description"
         android:id="@+id/schemeDescription"
         android:layout_below="@+id/schemeHeading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/addSchemeButton"
