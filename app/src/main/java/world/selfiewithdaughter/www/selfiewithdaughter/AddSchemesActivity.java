@@ -181,4 +181,9 @@ public class AddSchemesActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AddSchemesActivity.this, GovtSchemesActivity.class));
+    }
 }

@@ -186,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (jsonObject.getString("response").matches("success")) {
                     if (getIntent().hasExtra("ID")) {
                         Log.e("has id","true");
-                        Toast.makeText(LoginActivity.this,"Deleted Successfully!",Toast.LENGTH_LONG);
+                        Toast.makeText(LoginActivity.this,"Deleted Successfully!",Toast.LENGTH_LONG).show();
                         startActivity(new Intent(LoginActivity.this,GovtSchemesActivity.class));
                     } else
                     startActivity(new Intent(LoginActivity.this, AddSchemesActivity.class));
