@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_alignParentBottom="true"
-        android:text="Edit"/>
+        android:text="Add"/>
 
     <!-- Empty view is only visible when the list has no items. -->
     <TextView

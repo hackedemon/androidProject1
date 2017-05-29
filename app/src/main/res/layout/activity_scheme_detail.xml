@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,16 +23,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
+        android:layout_above="@+id/deleteButton"
         android:text="Description"
         android:textIsSelectable="true"
         android:layout_marginTop="16dp"
+        android:layout_below="@+id/detail_header"
         android:autoLink="web"/>
 
     <Button
+        android:layout_alignParentBottom="true"
         android:id="@+id/deleteButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Delete"/>
 
-</LinearLayout>
+</RelativeLayout>
