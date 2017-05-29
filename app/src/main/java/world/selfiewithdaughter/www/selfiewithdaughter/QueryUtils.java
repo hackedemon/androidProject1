@@ -177,6 +177,8 @@ public final class QueryUtils {
                 // Get a single scheme at position i within the list of schemes
                 JSONObject currentScheme = schemesArray.getJSONObject(i);
 
+                int id = currentScheme.getInt("id");
+
                 // Extract the value for the key called "mag"
                 String header = currentScheme.getString("header");
 
@@ -184,7 +186,7 @@ public final class QueryUtils {
                 String description = currentScheme.getString("description");
 
                 // Create a new {@link Earthquake} object with the header, description from the JSON response.
-                Schemes scheme = new Schemes(header, description);
+                Schemes scheme = new Schemes(id, header, description);
 
                 // Add the new {@link Earthquake} to the list of schemes.
                 schemes.add(scheme);

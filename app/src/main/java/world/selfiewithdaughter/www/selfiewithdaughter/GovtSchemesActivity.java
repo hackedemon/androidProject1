@@ -59,6 +59,7 @@ public class GovtSchemesActivity extends AppCompatActivity
 
                 // Create a new intent to view the details
                 Intent websiteIntent = new Intent(GovtSchemesActivity.this, SchemeDetail.class);
+                websiteIntent.putExtra("ID", currentItem.getId());
                 websiteIntent.putExtra("HEADER", currentItem.getHeader());
                 websiteIntent.putExtra("DESCRIPTION", currentItem.getDescription());
 

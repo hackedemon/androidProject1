@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,8 +68,15 @@ public class LoginActivity extends AppCompatActivity {
                             .setMessage("Password cannot be empty!")
                             .show();
                 } else {
-                    // connect to server
-                    new JsonTask().execute("http://ratofy.xyz/admin.php", user.getText().toString(), pass.getText().toString());
+                    Bundle extras = getIntent().getExtras();
+                    if (extras != null) {
+                        if (extras.containsKey("ID")) {
+                            new JsonTask().execute("http://ratofy.xyz/admin.php", Integer.toString(extras.getInt("ID")),
+                                    user.getText().toString(), pass.getText().toString());
+                        }
+                    } else
+                        // connect to server
+                        new JsonTask().execute("http://ratofy.xyz/admin.php", user.getText().toString(), pass.getText().toString());
                 }
             }
         });
@@ -105,25 +113,42 @@ public class LoginActivity extends AppCompatActivity {
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
 
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("username", params[1])
-                        .appendQueryParameter("pass", params[2]);
-                String query = builder.build().getEncodedQuery();
+                if (params[1].matches("-?\\d+(\\.\\d+)?")) {
+                    Uri.Builder builder = new Uri.Builder()
+                            .appendQueryParameter("id", params[1])
+                            .appendQueryParameter("username", params[2])
+                            .appendQueryParameter("pass", params[3]);
+                    String query = builder.build().getEncodedQuery();
 
-                OutputStream os = connection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
-                writer.flush();
-                writer.close();
-                os.close();
+                    OutputStream os = connection.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(
+                            new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(query);
+                    writer.flush();
+                    writer.close();
+                    os.close();
+                } else {
+                    Uri.Builder builder = new Uri.Builder()
+                            .appendQueryParameter("username", params[1])
+                            .appendQueryParameter("pass", params[2]);
+                    String query = builder.build().getEncodedQuery();
+
+                    OutputStream os = connection.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(
+                            new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(query);
+                    writer.flush();
+                    writer.close();
+                    os.close();
+                }
 
                 connection.connect();
 
                 if (connection.getResponseCode() == 200) {
                     inputStream = connection.getInputStream();
                     jsonResponse = readFromStream(inputStream);
-                }
+                } else
+                    jsonResponse = "{ 'response' : 'serverError' }";
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -168,11 +193,21 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 if (jsonObject.getString("response").matches("success")) {
+                    if (getIntent().hasExtra("ID")) {
+                        Log.e("has id","true");
+                        Toast.makeText(LoginActivity.this,"Deleted Successfully!",Toast.LENGTH_LONG);
+                        startActivity(new Intent(LoginActivity.this,GovtSchemesActivity.class));
+                    } else
                     startActivity(new Intent(LoginActivity.this, AddSchemesActivity.class));
-                } else {
+                } else if (jsonObject.getString("response").matches("error")) {
                     new AlertDialog.Builder(LoginActivity.this)
                             .setTitle("Error")
                             .setMessage("Incorrect username or password!")
+                            .show();
+                } else {
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle("Error")
+                            .setMessage("An error occurred. Please try again!")
                             .show();
                 }
             } catch (JSONException e) {
