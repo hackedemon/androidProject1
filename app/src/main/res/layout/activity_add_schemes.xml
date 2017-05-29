@@ -9,13 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="world.selfiewithdaughter.www.selfiewithdaughter.AddSchemesActivity">
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:id="@+id/dropdown"
-        android:layout_centerInParent="true"/>
-
     <EditText
         android:hint="Header"
         android:id="@+id/schemeHeading"
