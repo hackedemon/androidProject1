@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final Button button = (Button) findViewById(R.id.submitButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -62,15 +65,27 @@ public class LoginActivity extends AppCompatActivity {
                     Bundle extras = getIntent().getExtras();
                     if (extras != null) {
                         if (extras.containsKey("ID")) {
-                            new JsonTask().execute("http://ratofy.xyz/admin.php", Integer.toString(extras.getInt("ID")),
+                            new JsonTask().execute("http://selfiewithdaughter.world/admin.php", Integer.toString(extras.getInt("ID")),
                                     user.getText().toString(), pass.getText().toString());
                         }
                     } else
                         // connect to server
-                        new JsonTask().execute("http://ratofy.xyz/admin.php", user.getText().toString(), pass.getText().toString());
+                        new JsonTask().execute("http://selfiewithdaughter.world/admin.php", user.getText().toString(), pass.getText().toString());
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; go back
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class JsonTask extends AsyncTask<String, String, String> {

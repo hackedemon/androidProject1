@@ -3,11 +3,18 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_govt_schemes"
-            android:title="Government Schemes" />
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@android:drawable/ic_dialog_dialer"/>
         <item
-            android:id="@+id/nav_twitter_post"
-            android:title="Post on Twitter" />
+            android:id="@+id/nav_govt_schemes"
+            android:title="Government Schemes"
+            android:icon="@mipmap/ic_govt_schemes"/>
+
+        <item
+            android:id="@+id/nav_about"
+            android:title="About"
+            android:icon="@android:drawable/ic_dialog_info"/>
     </group>
 
 </menu>

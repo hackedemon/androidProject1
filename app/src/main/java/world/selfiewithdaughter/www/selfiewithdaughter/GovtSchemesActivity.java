@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -23,7 +25,7 @@ public class GovtSchemesActivity extends AppCompatActivity
 
     /** URL for data */
     private static final String REQUEST_URL =
-            "http://ratofy.xyz/api.php/";
+            "http://selfiewithdaughter.world/api.php/";
 
     /** Adapter for the list of schemes */
     private SchemesAdapter mAdapter;
@@ -35,6 +37,8 @@ public class GovtSchemesActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_govt_schemes);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Find a reference to the {@link ListView} in the layout
         ListView schemeListView = (ListView) findViewById(R.id.list);
@@ -137,5 +141,17 @@ public class GovtSchemesActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         startActivity(new Intent(GovtSchemesActivity.this, MainActivity.class));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; go to GovtScheme
+                startActivity(new Intent(GovtSchemesActivity.this, MainActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

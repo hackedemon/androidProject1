@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Selfie With Daughter</string>
+    <string name="app_name">Selfie With Daughter App</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -8,4 +8,7 @@
 
     <string name="no_internet_connection">No Internet Connection. Please check connectivity and try again.</string>
     <string name="no_schemes">No Schemes available currently!</string>
+
+    <string name="copyrights">\u00a9 Selfie With Daughter Foundation</string>
+    <string name="about">All as we know <b>SELFIE WITH DAUGHTER</b> a world wide revolution after promoted by Hon’ble Prime Minister of India <b>Sh. Narender Modi</b>. \n\nIn this campaigning named as Selfie With Daughter is a concept in which parents take a selfie with their daughter and feel to be proud parent of a girl child, and this proud feeling thought motivates our society specially those parents who give preference for male baby. Selfie With Daughter concept will encourage to human society for girl. \n\nBeginning of this concept from a small village named ‘<b>Bibipur</b>’ Distt. Jind (Haryana)- INDIA. I try to take help facebook/Whatsapp to complete this campaigning. We start this June 9, 2015 and got 794 selfies in 10 days campaigning and distribute cash reward as ` 3100/- with trophy &amp; appreciation certificate for first best selfie ` 2100/- for second, ` 1100/- for third best selfies.\nOn June 28, 2015 PM <b>Sh. Narender Modi</b> shared this campaigning by “<b>Mann ki Baat</b>” Program broadcast by “<b>All India Radio</b>”</string>
 </resources>

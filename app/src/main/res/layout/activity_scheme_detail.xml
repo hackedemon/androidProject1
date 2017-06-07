@@ -3,39 +3,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context="world.selfiewithdaughter.www.selfiewithdaughter.SchemeDetail">
 
     <TextView
         android:id="@+id/detail_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
+        android:text="Header"
         android:textSize="20sp"
-        android:text="Header"/>
+        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/detail_description"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:layout_above="@+id/deleteButton"
-        android:text="Description"
-        android:textIsSelectable="true"
-        android:layout_marginTop="16dp"
         android:layout_below="@+id/detail_header"
-        android:autoLink="web"/>
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/detail_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:text="Description"
+            android:textIsSelectable="true"
+            android:textSize="16sp" />
+    </ScrollView>
 
     <Button
-        android:layout_alignParentBottom="true"
         android:id="@+id/deleteButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/copyright"
         android:layout_marginTop="16dp"
-        android:text="Delete"/>
+        android:text="Delete" />
+
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="8dp"
+        android:text="@string/copyrights"
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
 </RelativeLayout>

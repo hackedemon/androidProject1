@@ -3,6 +3,10 @@ package world.selfiewithdaughter.www.selfiewithdaughter;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -10,12 +14,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -90,6 +96,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        webView.getSettings().setPluginsEnabled(true);
+//        webView.getSettings().setAllowFileAccess(true);
+//        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -108,6 +118,8 @@ public class MainActivity extends AppCompatActivity
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowFileAccess(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+//        webSettings.setSupportMultipleWindows(true);
 
         if(Build.VERSION.SDK_INT >= 21){
             webSettings.setMixedContentMode(0);
@@ -260,10 +272,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_govt_schemes) {
+//        if (getApplicationContext().equals(MainActivity.this)) {
+//            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_home);
+//            Menu nav_Menu = navigationView.getMenu();
+//            nav_Menu.findItem(R.id.nav_home).setVisible(false);
+//        }
+        if (id == R.id.nav_home) {
+            startActivity(new Intent(this, MainActivity.class));
+        } else if (id == R.id.nav_govt_schemes) {
             startActivity(new Intent(this, GovtSchemesActivity.class));
-        } else if (id == R.id.nav_twitter_post) {
-            startActivity(new Intent(this, TwitterActivity.class));
+        } else if (id == R.id.nav_about) {
+            startActivity(new Intent(this, AboutAcitivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

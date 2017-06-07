@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,6 +43,8 @@ public class AddSchemesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schemes);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final EditText header = (EditText) findViewById(R.id.schemeHeading);
         final EditText description = (EditText) findViewById(R.id.schemeDescription);
         final Button button = (Button) findViewById(R.id.addSchemeButton);
@@ -64,7 +67,7 @@ public class AddSchemesActivity extends AppCompatActivity {
                             .show();
                 } else {
                     // connect to server
-                    new JsonTask().execute("http://ratofy.xyz/api.php", header.getText().toString(), description.getText().toString());
+                    new JsonTask().execute("http://selfiewithdaughter.world/api.php", header.getText().toString(), description.getText().toString());
                 }
             }
         });
@@ -185,5 +188,17 @@ public class AddSchemesActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(AddSchemesActivity.this, GovtSchemesActivity.class));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; go to GovtScheme
+                startActivity(new Intent(AddSchemesActivity.this, GovtSchemesActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
